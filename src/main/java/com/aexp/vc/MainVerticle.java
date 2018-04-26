@@ -50,7 +50,7 @@ public class MainVerticle extends AbstractVerticle {
         JsonObject config = context.config();
 
         //getting the bootstrap node, as a JSON array (default to localhost)
-        JsonArray seedNodeArray = config.getJsonArray("couchbase.seedNodes", new JsonArray().add("localhost"));
+        JsonArray seedNodeArray = config.getJsonArray("couchbase.seedNodes", new JsonArray().add(52.32.243.92));
         //convert to a List
         List seedNodes = new ArrayList<>(seedNodeArray.size());
         for (Object seedNode : seedNodeArray) {
