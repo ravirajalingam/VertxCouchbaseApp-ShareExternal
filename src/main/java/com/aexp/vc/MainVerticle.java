@@ -119,20 +119,20 @@ cluster.openBucket(config().getString("couchbase.bucketName", "sampleData"), con
         }
     }
 
-    boolean a = false;
-    boolean b = false;
-    boolean c = false;
+    
+    
+    
 
-    private void postHandler(String str) {
+    
 
 
-    }
+    
 
     private void getHandler(RoutingContext routingContext) {
         String docId = routingContext.request().getParam("id");
 
         LOGGER.debug("getting the value from couchbase");
-        bucket.get(docId, RawJsonDocument.class)
+        bucket3.get(docId, RawJsonDocument.class)
             .switchIfEmpty(Observable.error(new DocumentDoesNotExistException()))
             .subscribe(doc -> routingContext.response().putHeader("content-type", "application/json").setStatusCode(200).end(doc.content()), error -> System.out.println("error occured fetching id ::" + error.getMessage()), () -> System.out.println("completeted get request"));
     }
