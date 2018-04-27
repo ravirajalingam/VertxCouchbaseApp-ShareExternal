@@ -51,9 +51,9 @@
 
               <configuration>
 
-                  <outputDirectory>${project.build.directory}/someshit</outputDirectory>
+                  <outputDirectory>${project.build.directory}/someother</outputDirectory>
 
-                  <outputFileName>waste.jar</outputFileName>
+                  <outputFileName>required.jar</outputFileName>
 
               </configuration>
 
