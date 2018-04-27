@@ -80,26 +80,42 @@ public class MainVerticle extends AbstractVerticle {
     }
 
     @Override
-    public void start(Future startFuture) throws Exception {
+    public void start() throws Exception {
 
 
 
         try {
-
+cluster.openBucket(config().getString("couchbase.bucketName", "sampleData"), config().getString("couchbase.bucketPassword", "password"))
+                    .doOnNext(openedBucket -> LOGGER.info("Bucket opened " + openedBucket.name()))
+                    .doOnNext(openedBucket -> this.bucket = openedBucket)
+            
+             
+                    .subscribe(
+                            openedBucket -> bucket = openedBucket
+                            );
+        cluster.openBucket(config().getString("couchbase.bucketName", "beer-sample"), config().getString("couchbase.bucketPassword", "password"))
+                    .doOnNext(openedBucket -> LOGGER.info("Bucket opened " + openedBucket.name()))
+                    .doOnNext(openedBucket -> this.bucket2 = openedBucket)
+            
+             
+                    .subscribe(
+                            openedBucket -> bucket2 = openedBucket
+                            );
+        
             cluster.openBucket(config().getString("couchbase.bucketName", "travel-sample"), config().getString("couchbase.bucketPassword", "password"))
                     .doOnNext(openedBucket -> LOGGER.info("Bucket opened " + openedBucket.name()))
                     .doOnNext(openedBucket -> this.bucket3 = openedBucket)
-            /* .last()
-             .flatMap(ignore -> vertx.createHttpServer().requestHandler(this::handle).listen(8080));*/
+            
+             
                     .subscribe(
-                            openedBucket -> bucket3 = openedBucket,
-                            startFuture::fail);
+                            openedBucket -> bucket3 = openedBucket
+                            );
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
         finally{
 
-            startFuture.complete();
+            
         }
     }
 
